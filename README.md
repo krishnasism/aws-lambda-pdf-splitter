@@ -8,7 +8,7 @@ How it works:
 1. PDF is uploaded to S3 bucket
 2. S3 Event notification is triggered
 3. Lambda function is triggered by this notification
-4. Lambda function splits the file and writes metadata
+4. Lambda function splits the file page by page and writes metadata (Change logic as required in [lambda_function.py](code/lambda_function.py))
 5. Data is sent to destination bucket
 
 # Usage
@@ -41,36 +41,3 @@ Add credentials for terraform provider to be used. You can follow the [docs](htt
 
 ## Setup env
 Add credentials for terraform provider to be used. You can follow the [docs](https://registry.terraform.io/providers/hashicorp/aws/latest/docs).
-
-# Lambda function
-
-## Setup env
-
-```zsh
-cd code
-uv venv
-source .venv/bin/activate
-uv pip install -r requirements-dev.txt
-```
-
-## Package lambda function
-
-```zsh
-make package
-```
-
-## Deploy
-```zsh
-make deploy
-```
-
-# Deployment
-
-Deploy complete configuration
-```zsh
-terraform init
-terraform apply -auto-approve
-```
-
-## Functionality
-The function splits the PDF page by page.
